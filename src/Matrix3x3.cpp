@@ -75,23 +75,29 @@ double Matrix3x3::Det() const
 
 Matrix3x3 Matrix3x3::Transposed() const
 {
-   
-    for (int i = 0; i < sizeof(m); i++) {
+    Matrix3x3 Transposed;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            Transposed.At(j, i) = this->At(i, j);
 
-    }
-    return {};
+        }
+   }
+    return Transposed;
 }
 
 double Matrix3x3::Trace() const
 {
-    //TODO
-    return 0.0;
+    double trace =At(0,0)+At(1,1)+At(2,2);
+    return trace;
 }
 
 bool Matrix3x3::IsRotation() const
 {
-    //TODO
-    return false;
+    
+    if (std::abs(this->Det()- 1.0)>TOL) {
+        return false;
+    }  
+    return true;
 }
 
 Matrix3x3 Matrix3x3::RotationAxisAngle(const Vec3& u_in, double phi)
